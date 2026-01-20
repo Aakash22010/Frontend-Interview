@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import Footer from "./components/Footer";
+import BlogList from "./components/BlogList";
+import BlogDetail from "./components/BlogDetail";
+import CreateBlogForm from "./components/CreateBlogForm";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [selectedBlog, setSelectedBlog] = useState<number | null>(null);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="min-h-screen flex flex-col bg-muted">
+      {/* Global navigation */}
+      <Navbar />
 
-export default App
+      {/* Page intro section */}
+      <Hero />
+
+      {/* Main layout */}
+      <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        {/* Sidebar */}
+        <aside className="lg:col-span-4">
+          <div
+            className="
+              sticky top-24
+              h-[calc(100vh-6rem)]
+              flex flex-col gap-6
+            "
+          >
+
+            {/* Popup blog creation */}
+            <CreateBlogForm />
+
+            {/* Scrollable blog list */}
+            <div className="flex-1 overflow-hidden">
+              <BlogList
+                selectedId={selectedBlog}
+                onSelect={setSelectedBlog}
+              />
+            </div>
+          </div>
+        </aside>
+
+        {/* Main blog content */}
+        <section className="lg:col-span-8">
+          <BlogDetail blogId={selectedBlog} />
+        </section>
+      </main>
+
+      {/* Footer */}
+      <Footer />
+    </div>
+  );
+}

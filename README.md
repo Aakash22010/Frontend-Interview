@@ -33,7 +33,7 @@ The project demonstrates real-world React patterns, clean UI, and proper server-
 
 ```bash
 # 1. Clone the repository
-git clone <your-forked-repo-url>
+git clone [<repo-url>](https://github.com/Aakash22010/Frontend-Interview.git)
 cd camonk-interview
 
 # 2. Install dependencies
